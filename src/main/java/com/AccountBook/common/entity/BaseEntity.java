@@ -1,4 +1,4 @@
-package com.AccountBook.common.config;
+package com.AccountBook.common.entity;
 
 
 import jakarta.persistence.EntityListeners;
