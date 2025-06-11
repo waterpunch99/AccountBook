@@ -1,0 +1,20 @@
+# IDE
+.idea/
+*.iml
+
+# Build
+/build/
+out/
+
+# OS
+.DS_Store
+
+# Gradle
+.gradle/
+**/build/
+
+# Logs
+*.log
+
+# 기타
+application.yml
