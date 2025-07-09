@@ -5,6 +5,7 @@ import com.AccountBook.api.user.domain.UserRepository;
 import com.AccountBook.api.user.dto.LoginRequestDto;
 import com.AccountBook.api.user.dto.SignupRequestDto;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -13,15 +14,23 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
+    private final BCryptPasswordEncoder passwordEncoder;
     @Override
-    public void login(LoginRequestDto loginRequestDto) {
-        userRepository.findByLoginId(loginRequestDto.getLoginId());
+    public User login(LoginRequestDto loginRequestDto) {
+        User user = userRepository.findByLoginId(loginRequestDto.getLoginId())
+                .orElseThrow(() -> new IllegalArgumentException("없는 아이디입니다"));
+        if (!passwordEncoder.matches(loginRequestDto.getPassword(), user.getPassword())) {
+            throw new IllegalArgumentException("비밀번호가 틀립니다");
+        }
 
+        return user;
     }
 
     @Override
     public User createUser(SignupRequestDto signupRequestDto) {
-        return userRepository.save(signupRequestDto.toEntity());
+        String encodedPassword = passwordEncoder.encode(signupRequestDto.getPassword());
+        User user = signupRequestDto.toEntity(encodedPassword);
+        return userRepository.save(user);
     }
 
     @Override

@@ -9,10 +9,10 @@ public class SignupRequestDto {
     private String password;
     private String username;
 
-    public User toEntity(){
+    public User toEntity(String encodedPassword){
         return User.builder()
                 .loginId(this.loginId)
-                .password(this.password)
+                .password(encodedPassword)
                 .username(this.username)
                 .build();
     }

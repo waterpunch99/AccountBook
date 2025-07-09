@@ -8,7 +8,7 @@ import java.util.Optional;
 
 public interface UserService {
     //로그인
-    public void login(LoginRequestDto loginRequestDto);
+    public User login(LoginRequestDto loginRequestDto);
     //회원가입
     public User createUser(SignupRequestDto signupRequestDto);
     //아이디 중복 확인
