@@ -16,15 +16,15 @@ public class AccountBook {
     private Long id;
     private Long amount;
     @Enumerated(EnumType.STRING)
-    private Accounttype actype;
+    private Accounttype accounttype;
     private String memo;
     //private String category;
 
     @Builder
-    public AccountBook(Long id, Long amount, Accounttype actype, String memo){
+    public AccountBook(Long id, Long amount, Accounttype accounttype, String memo){
         this.id = id;
         this.amount = amount;
-        this.actype = actype;
+        this.accounttype = accounttype;
         this.memo = memo;
     }
 
